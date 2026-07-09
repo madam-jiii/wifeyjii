@@ -12,8 +12,8 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: #0b0b0b;
-      color: #f5f0eb;
+      background: #faf6f0;
+      color: #3d3530;
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
       overflow: hidden;
@@ -25,7 +25,7 @@
       position: relative;
       width: 100vw;
       height: 100vh;
-      background: #0b0b0b;
+      background: #faf6f0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -33,7 +33,7 @@
       overflow: hidden;
       padding: 1.2rem;
     }
-    /* HOME - Romantic soft UI */
+    /* HOME - Light romantic soft UI */
     #homeScreen {
       position: absolute;
       inset: 0;
@@ -41,7 +41,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(ellipse at center, #1a1512 0%, #0b0b0b 100%);
+      background: radial-gradient(ellipse at center, #fff9f2 0%, #f5ede4 100%);
       z-index: 30;
       padding: 1.5rem;
       text-align: center;
@@ -62,17 +62,17 @@
       font-size: clamp(2.2rem, 10vw, 4.8rem);
       font-weight: 500;
       letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #f7e8d0, #e8c9a0, #d4b68a);
+      background: linear-gradient(135deg, #d4a373, #b8876a, #a6755a);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 0.2rem;
       line-height: 1.1;
-      text-shadow: 0 0 60px rgba(212, 182, 138, 0.08);
+      text-shadow: 0 0 60px rgba(180, 130, 100, 0.08);
     }
     .home-sub {
       font-size: clamp(0.9rem, 2.5vw, 1.3rem);
-      color: #c9b8a8;
+      color: #8a7a6a;
       letter-spacing: 0.5px;
       margin-bottom: 1.8rem;
       font-weight: 300;
@@ -83,39 +83,39 @@
       height: min(280px, 70vw);
       border-radius: 30px;
       overflow: hidden;
-      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.9), 0 0 0 1px rgba(212,182,138,0.1), 0 0 40px rgba(212,182,138,0.05);
+      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.08), 0 0 0 1px rgba(180,130,100,0.08), 0 0 40px rgba(180,130,100,0.05);
       margin-bottom: 1.8rem;
       transition: transform 0.4s ease, box-shadow 0.4s ease;
-      border: 1px solid rgba(212,182,138,0.08);
+      border: 1px solid rgba(180,130,100,0.06);
       animation: fadeInScale 0.8s ease forwards;
       flex-shrink: 0;
     }
-    .home-image-wrapper:hover { transform: scale(1.02); box-shadow: 0 35px 70px -20px rgba(0,0,0,0.9), 0 0 0 1px rgba(212,182,138,0.15), 0 0 50px rgba(212,182,138,0.08); }
+    .home-image-wrapper:hover { transform: scale(1.02); box-shadow: 0 35px 70px -20px rgba(0,0,0,0.06), 0 0 0 1px rgba(180,130,100,0.12), 0 0 50px rgba(180,130,100,0.06); }
     .home-image-wrapper img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      background: #1e1c19;
+      background: #e8ddd2;
     }
     @keyframes fadeInScale {
       0% { opacity: 0; transform: scale(0.95); }
       100% { opacity: 1; transform: scale(1); }
     }
     .btn-start {
-      background: rgba(212, 182, 138, 0.12);
+      background: rgba(180, 130, 100, 0.08);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
-      border: 1px solid rgba(212, 182, 138, 0.25);
+      border: 1px solid rgba(180, 130, 100, 0.15);
       padding: 0.8rem 2.8rem;
       border-radius: 60px;
       font-size: clamp(1rem, 2.5vw, 1.2rem);
       font-weight: 500;
-      color: #f5e6c8;
+      color: #6b5a4a;
       letter-spacing: 0.8px;
       cursor: pointer;
       transition: 0.4s ease;
-      box-shadow: 0 8px 25px -6px rgba(0,0,0,0.6), inset 0 1px 0 rgba(212,182,138,0.05);
+      box-shadow: 0 8px 25px -6px rgba(0,0,0,0.03), inset 0 1px 0 rgba(255,255,255,0.6);
       margin-top: 0.2rem;
       position: relative;
       overflow: hidden;
@@ -126,21 +126,21 @@
       inset: 0;
       border-radius: 60px;
       padding: 2px;
-      background: linear-gradient(135deg, rgba(212,182,138,0.2), transparent);
+      background: linear-gradient(135deg, rgba(180,130,100,0.15), transparent);
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       pointer-events: none;
     }
     .btn-start:hover {
-      background: rgba(212, 182, 138, 0.2);
-      border-color: #d4b68a;
+      background: rgba(180, 130, 100, 0.15);
+      border-color: #b8876a;
       transform: scale(1.02);
-      box-shadow: 0 8px 30px -6px rgba(212,182,138,0.15), 0 8px 25px -6px rgba(0,0,0,0.6);
+      box-shadow: 0 8px 30px -6px rgba(180,130,100,0.1), 0 8px 25px -6px rgba(0,0,0,0.03);
     }
     .swipe-hint {
       font-size: clamp(0.7rem, 1.6vw, 0.85rem);
-      color: #8a7a6a;
+      color: #b5a392;
       letter-spacing: 0.5px;
       margin-top: 1rem;
       opacity: 0.6;
@@ -157,7 +157,7 @@
       0%, 100% { opacity: 0.6; transform: translateX(0); }
       50% { opacity: 1; transform: translateX(4px); }
     }
-    /* MEMORY PAGES - Romantic soft */
+    /* MEMORY PAGES - Light romantic soft */
     .memory-page {
       position: absolute;
       inset: 0;
@@ -171,7 +171,7 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-      background: radial-gradient(ellipse at center, #161210 0%, #0b0b0b 100%);
+      background: radial-gradient(ellipse at center, #fff9f2 0%, #f5ede4 100%);
       overflow-y: auto;
       transform: scale(1);
     }
@@ -181,39 +181,39 @@
     .memory-card {
       max-width: 780px;
       width: 100%;
-      background: rgba(20, 18, 16, 0.6);
+      background: rgba(255, 248, 242, 0.7);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border-radius: 40px;
       padding: 2rem 1.8rem 2rem;
-      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.9), 0 0 0 1px rgba(212,182,138,0.06), 0 0 40px rgba(212,182,138,0.02);
-      border: 1px solid rgba(212,182,138,0.06);
+      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.04), 0 0 0 1px rgba(180,130,100,0.06), 0 0 40px rgba(180,130,100,0.02);
+      border: 1px solid rgba(180,130,100,0.06);
       display: flex;
       flex-direction: column;
       gap: 1rem;
       max-height: 90vh;
       overflow-y: auto;
       scrollbar-width: thin;
-      scrollbar-color: #d4b68a33 transparent;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" /><path d="M10 10 L90 10 L90 90 L10 90 Z" stroke="rgba(212,182,138,0.02)" stroke-width="0.5" fill="none" /></svg>');
+      scrollbar-color: #d4a37333 transparent;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" /><path d="M10 10 L90 10 L90 90 L10 90 Z" stroke="rgba(180,130,100,0.03)" stroke-width="0.5" fill="none" /></svg>');
       background-size: 40px 40px;
     }
     .memory-card::-webkit-scrollbar { width: 4px; }
-    .memory-card::-webkit-scrollbar-thumb { background: #d4b68a44; border-radius: 20px; }
+    .memory-card::-webkit-scrollbar-thumb { background: #d4a37344; border-radius: 20px; }
     .memory-title {
       font-size: clamp(1.5rem, 4.5vw, 2.6rem);
       font-weight: 500;
       letter-spacing: -0.3px;
-      color: #f5e6c8;
-      border-left: 4px solid rgba(212,182,138,0.4);
+      color: #4a3d35;
+      border-left: 4px solid rgba(180,130,100,0.3);
       padding-left: 1rem;
       margin-bottom: 0.1rem;
-      text-shadow: 0 0 30px rgba(212,182,138,0.05);
+      text-shadow: 0 0 30px rgba(180,130,100,0.03);
     }
     .memory-date {
       font-size: 0.75rem;
       letter-spacing: 0.6px;
-      color: #a38d74;
+      color: #b5a08a;
       margin-top: -0.1rem;
       padding-left: 1rem;
       border-left: 4px solid transparent;
@@ -221,12 +221,12 @@
     .memory-diary {
       font-size: clamp(0.95rem, 1.6vw, 1.15rem);
       line-height: 1.9;
-      color: #e2d6c8;
+      color: #4a3d35;
       font-weight: 300;
-      background: rgba(0,0,0,0.15);
+      background: rgba(255,248,242,0.4);
       padding: 1.2rem 1.4rem;
       border-radius: 24px;
-      border-left: 3px solid rgba(212,182,138,0.12);
+      border-left: 3px solid rgba(180,130,100,0.08);
       white-space: pre-wrap;
       word-break: break-word;
       max-width: 800px;
@@ -239,40 +239,40 @@
       display: flex;
       justify-content: space-between;
       font-size: 0.65rem;
-      color: #8a7a6a;
+      color: #b5a08a;
       letter-spacing: 0.3px;
       padding: 0 0.2rem;
-      border-bottom: 1px solid rgba(212,182,138,0.06);
+      border-bottom: 1px solid rgba(180,130,100,0.06);
       padding-bottom: 0.5rem;
       margin-bottom: 0.2rem;
       flex-wrap: wrap;
       gap: 0.3rem;
     }
     .reading-meta span {
-      background: rgba(0,0,0,0.2);
+      background: rgba(255,248,242,0.4);
       padding: 0.15rem 0.7rem;
       border-radius: 40px;
     }
     .audio-player {
       width: 100%;
       margin: 0.1rem 0;
-      background: rgba(0,0,0,0.25);
+      background: rgba(255,248,242,0.4);
       border-radius: 60px;
       padding: 0.5rem 0.7rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
       flex-wrap: wrap;
-      border: 1px solid rgba(212,182,138,0.04);
+      border: 1px solid rgba(180,130,100,0.04);
     }
     .audio-player audio {
       width: 100%;
       height: 36px;
       outline: none;
       border-radius: 40px;
-      filter: invert(0.9) hue-rotate(10deg);
+      filter: brightness(1);
     }
-    .audio-player audio::-webkit-media-controls-panel { background: #1f1b17; }
+    .audio-player audio::-webkit-media-controls-panel { background: #f5ede4; }
     .nav-bar {
       position: absolute;
       bottom: 0.8rem;
@@ -285,15 +285,15 @@
       flex-wrap: wrap;
       padding: 0.4rem 0.6rem;
       z-index: 20;
-      background: rgba(11, 11, 11, 0.5);
+      background: rgba(255, 248, 242, 0.5);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      border-top: 1px solid rgba(212,182,138,0.04);
+      border-top: 1px solid rgba(180,130,100,0.04);
     }
     .nav-btn {
       background: transparent;
-      border: 1px solid rgba(212,182,138,0.12);
-      color: #d4c0ac;
+      border: 1px solid rgba(180,130,100,0.12);
+      color: #6b5a4a;
       padding: 0.3rem 1rem;
       border-radius: 40px;
       font-size: clamp(0.7rem, 1.6vw, 0.85rem);
@@ -302,17 +302,17 @@
       transition: 0.3s ease;
       letter-spacing: 0.2px;
       backdrop-filter: blur(2px);
-      background: rgba(20,18,16,0.2);
+      background: rgba(255,248,242,0.2);
     }
     .nav-btn:hover:not(:disabled) {
-      background: rgba(212,182,138,0.08);
-      border-color: rgba(212,182,138,0.3);
-      color: #f5e6c8;
-      box-shadow: 0 0 20px rgba(212,182,138,0.03);
+      background: rgba(180,130,100,0.08);
+      border-color: rgba(180,130,100,0.25);
+      color: #4a3d35;
+      box-shadow: 0 0 20px rgba(180,130,100,0.03);
     }
     .nav-btn:disabled { opacity: 0.2; cursor: not-allowed; border-color: transparent; }
     .nav-indicator {
-      color: #a38d74;
+      color: #b5a08a;
       font-size: clamp(0.7rem, 1.6vw, 0.8rem);
       letter-spacing: 0.4px;
       min-width: 80px;
@@ -321,12 +321,12 @@
     #loadingScreen {
       position: fixed;
       inset: 0;
-      background: radial-gradient(ellipse at center, #1a1512 0%, #0b0b0b 100%);
+      background: radial-gradient(ellipse at center, #fff9f2 0%, #f5ede4 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 999;
-      color: #d4b68a;
+      color: #b8876a;
       font-size: 1.2rem;
       letter-spacing: 2px;
       transition: opacity 0.8s ease;
@@ -337,8 +337,8 @@
     .loader {
       width: 30px;
       height: 30px;
-      border: 2px solid rgba(212,182,138,0.08);
-      border-top: 2px solid #d4b68a;
+      border: 2px solid rgba(180,130,100,0.08);
+      border-top: 2px solid #b8876a;
       border-radius: 50%;
       animation: spin 0.9s linear infinite;
     }
@@ -346,7 +346,7 @@
     .music-popup {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.7);
+      background: rgba(250, 246, 240, 0.7);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       display: flex;
@@ -362,25 +362,25 @@
     .popup-card {
       max-width: 420px;
       width: 100%;
-      background: rgba(20,18,16,0.7);
+      background: rgba(255,248,242,0.7);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border-radius: 48px;
       padding: 2.4rem 1.8rem;
       text-align: center;
-      border: 1px solid rgba(212,182,138,0.08);
-      box-shadow: 0 40px 80px -20px #000, 0 0 40px rgba(212,182,138,0.02);
+      border: 1px solid rgba(180,130,100,0.06);
+      box-shadow: 0 40px 80px -20px rgba(0,0,0,0.04), 0 0 40px rgba(180,130,100,0.02);
     }
     .popup-card h2 {
       font-size: clamp(1.8rem, 6vw, 2.2rem);
       font-weight: 400;
-      color: #f5e6c8;
+      color: #4a3d35;
       letter-spacing: -0.5px;
       margin-bottom: 0.4rem;
-      text-shadow: 0 0 30px rgba(212,182,138,0.05);
+      text-shadow: 0 0 30px rgba(180,130,100,0.03);
     }
     .popup-card p {
-      color: #c4b4a0;
+      color: #8a7a6a;
       font-size: clamp(0.9rem, 2vw, 1rem);
       line-height: 1.6;
       margin: 0.6rem 0 1.6rem;
@@ -388,9 +388,9 @@
     }
     .popup-actions { display: flex; flex-direction: column; gap: 0.7rem; }
     .popup-btn {
-      background: rgba(212,182,138,0.06);
-      border: 1px solid rgba(212,182,138,0.12);
-      color: #f5e6c8;
+      background: rgba(180,130,100,0.04);
+      border: 1px solid rgba(180,130,100,0.08);
+      color: #4a3d35;
       padding: 0.7rem 1.4rem;
       border-radius: 60px;
       font-size: clamp(0.9rem, 2vw, 1rem);
@@ -401,47 +401,47 @@
       backdrop-filter: blur(2px);
     }
     .popup-btn:hover {
-      background: rgba(212,182,138,0.12);
-      border-color: rgba(212,182,138,0.25);
+      background: rgba(180,130,100,0.08);
+      border-color: rgba(180,130,100,0.15);
     }
     .popup-btn.primary {
-      background: rgba(212,182,138,0.12);
-      border-color: rgba(212,182,138,0.2);
+      background: rgba(180,130,100,0.08);
+      border-color: rgba(180,130,100,0.12);
     }
-    .popup-btn.primary:hover { background: rgba(212,182,138,0.2); }
+    .popup-btn.primary:hover { background: rgba(180,130,100,0.15); }
     .floating-music {
       position: fixed;
       bottom: 5.5rem;
       right: 0.8rem;
       z-index: 40;
-      background: rgba(20,18,16,0.6);
+      background: rgba(255,248,242,0.6);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border-radius: 60px;
       padding: 0.4rem 0.7rem;
-      border: 1px solid rgba(212,182,138,0.08);
+      border: 1px solid rgba(180,130,100,0.06);
       display: flex;
       align-items: center;
       gap: 0.4rem;
-      box-shadow: 0 8px 25px -8px #000;
+      box-shadow: 0 8px 25px -8px rgba(0,0,0,0.02);
       transition: 0.3s;
     }
     .floating-music audio {
       width: 80px;
       height: 28px;
-      filter: invert(0.9) hue-rotate(10deg);
+      filter: brightness(1);
     }
-    .floating-music audio::-webkit-media-controls-panel { background: #1f1b17; }
+    .floating-music audio::-webkit-media-controls-panel { background: #f5ede4; }
     .surprise-btn {
-      background: rgba(212,182,138,0.08);
+      background: rgba(180,130,100,0.06);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
-      border: 1px solid rgba(212,182,138,0.15);
+      border: 1px solid rgba(180,130,100,0.1);
       padding: 0.6rem 1.8rem;
       border-radius: 60px;
       font-size: clamp(0.9rem, 2vw, 1rem);
       font-weight: 400;
-      color: #f5e6c8;
+      color: #6b5a4a;
       cursor: pointer;
       transition: 0.3s ease;
       letter-spacing: 0.5px;
@@ -450,16 +450,16 @@
       align-self: center;
     }
     .surprise-btn:hover {
-      background: rgba(212,182,138,0.15);
-      border-color: rgba(212,182,138,0.3);
+      background: rgba(180,130,100,0.1);
+      border-color: rgba(180,130,100,0.2);
       transform: scale(1.02);
-      box-shadow: 0 0 30px rgba(212,182,138,0.04);
+      box-shadow: 0 0 30px rgba(180,130,100,0.04);
     }
     /* Surprise popup - fully responsive */
     .surprise-popup {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.75);
+      background: rgba(250, 246, 240, 0.7);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       display: flex;
@@ -481,14 +481,14 @@
       max-width: 520px;
       width: 100%;
       max-height: 92vh;
-      background: rgba(20,18,16,0.85);
+      background: rgba(255,248,242,0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-radius: 40px;
       padding: 2rem 1.8rem 1.8rem;
       text-align: center;
-      border: 1px solid rgba(212,182,138,0.06);
-      box-shadow: 0 40px 80px -20px #000, 0 0 40px rgba(212,182,138,0.02);
+      border: 1px solid rgba(180,130,100,0.06);
+      box-shadow: 0 40px 80px -20px rgba(0,0,0,0.04), 0 0 40px rgba(180,130,100,0.02);
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -497,10 +497,10 @@
     .surprise-popup .popup-card h2 {
       font-size: clamp(1.4rem, 5vw, 2rem);
       font-weight: 400;
-      color: #f5e6c8;
+      color: #4a3d35;
       margin-bottom: 0.6rem;
       letter-spacing: -0.3px;
-      text-shadow: 0 0 30px rgba(212,182,138,0.05);
+      text-shadow: 0 0 30px rgba(180,130,100,0.03);
     }
     .surprise-popup .popup-image-wrapper {
       width: min(170px, 45vw);
@@ -508,8 +508,8 @@
       border-radius: 24px;
       overflow: hidden;
       margin: 0 auto 1rem;
-      box-shadow: 0 20px 40px -16px rgba(0,0,0,0.8), 0 0 0 1px rgba(212,182,138,0.06), 0 0 30px rgba(212,182,138,0.03);
-      border: 1px solid rgba(212,182,138,0.04);
+      box-shadow: 0 20px 40px -16px rgba(0,0,0,0.04), 0 0 0 1px rgba(180,130,100,0.06), 0 0 30px rgba(180,130,100,0.02);
+      border: 1px solid rgba(180,130,100,0.04);
       animation: fadeInScale 0.7s ease forwards;
       flex-shrink: 0;
     }
@@ -518,10 +518,10 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      background: #1e1c19;
+      background: #e8ddd2;
     }
     .surprise-popup .popup-card .popup-message {
-      color: #d4c8bc;
+      color: #4a3d35;
       font-size: clamp(0.85rem, 2vw, 1rem);
       line-height: 1.8;
       margin: 0.4rem 0 1.4rem;
@@ -547,10 +547,16 @@
       font-size: clamp(0.8rem, 1.8vw, 0.95rem);
       flex: 1 1 auto;
       max-width: 200px;
+      color: #4a3d35;
+      border-color: rgba(180,130,100,0.1);
+    }
+    .surprise-popup .popup-btn:hover {
+      background: rgba(180,130,100,0.08);
+      border-color: rgba(180,130,100,0.2);
     }
     /* Scrollbar for surprise popup */
     .surprise-popup .popup-card::-webkit-scrollbar { width: 3px; }
-    .surprise-popup .popup-card::-webkit-scrollbar-thumb { background: #d4b68a33; border-radius: 10px; }
+    .surprise-popup .popup-card::-webkit-scrollbar-thumb { background: #d4a37333; border-radius: 10px; }
     @media (max-width: 480px) {
       .memory-card { padding: 1.2rem; border-radius: 28px; gap: 0.7rem; }
       .nav-bar { gap: 0.4rem; padding: 0.3rem 0.4rem; }
@@ -603,7 +609,7 @@
       <div class="home-title">From Free Fire<br />to Forever</div>
       <div class="home-sub">“A collection of memories I'll always be thankful for.”</div>
       <div class="home-image-wrapper">
-        <img src="assets/images/img1.jpg" alt="Madam Jii" loading="eager" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22533%22 viewBox=%220 0 400 533%22%3E%3Crect width=%22400%22 height=%22533%22 fill=%22%231e1b18%22/%3E%3Ctext x=%22200%22 y=%22266%22 fill=%22%23d4b68a44%22 text-anchor=%22middle%22 font-size=%2220%22 font-family=%22Inter%22%3EMadam Jii%3C/text%3E%3C/svg%3E'" />
+        <img src="assets/images/img1.jpg" alt="Madam Jii" loading="eager" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22533%22 viewBox=%220 0 400 533%22%3E%3Crect width=%22400%22 height=%22533%22 fill=%22%23e8ddd2%22/%3E%3Ctext x=%22200%22 y=%22266%22 fill=%22%23b8876a44%22 text-anchor=%22middle%22 font-size=%2220%22 font-family=%22Inter%22%3EMadam Jii%3C/text%3E%3C/svg%3E'" />
       </div>
       <button class="btn-start" id="startReadingBtn">Start Reading</button>
       <div class="swipe-hint">
@@ -630,7 +636,7 @@
   <div class="popup-card">
     <h2>❤️ To Madam Jii</h2>
     <div class="popup-image-wrapper">
-      <img src="assets/images/img2.jpg" alt="Madam Jii" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22533%22 viewBox=%220 0 400 533%22%3E%3Crect width=%22400%22 height=%22533%22 fill=%22%231e1b18%22/%3E%3Ctext x=%22200%22 y=%22266%22 fill=%22%23d4b68a44%22 text-anchor=%22middle%22 font-size=%2220%22 font-family=%22Inter%22%3EMadam Jii%3C/text%3E%3C/svg%3E'" />
+      <img src="assets/images/img2.jpg" alt="Madam Jii" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22533%22 viewBox=%220 0 400 533%22%3E%3Crect width=%22400%22 height=%22533%22 fill=%22%23e8ddd2%22/%3E%3Ctext x=%22200%22 y=%22266%22 fill=%22%23b8876a44%22 text-anchor=%22middle%22 font-size=%2220%22 font-family=%22Inter%22%3EMadam Jii%3C/text%3E%3C/svg%3E'" />
     </div>
     <div class="popup-message">If you're ever reading this...
 
