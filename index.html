@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>From Free Fire to Forever · Diary</title>
+  <!-- Google Fonts + AOS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0b0b0b;
+      color: #f5f0eb;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .diary-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: #0b0b0b;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 1.2rem;
+    }
+    /* HOME */
+    #homeScreen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0b0b0b;
+      z-index: 30;
+      padding: 2rem;
+      text-align: center;
+      transition: opacity 0.6s ease;
+    }
+    #homeScreen.hidden { opacity: 0; pointer-events: none; }
+    .home-title {
+      font-size: clamp(2.6rem, 12vw, 5.4rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #f5e6c8, #d4b68a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.2rem;
+      line-height: 1.1;
+    }
+    .home-sub {
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      color: #b8a992;
+      letter-spacing: 0.3px;
+      margin-bottom: 1.8rem;
+      font-weight: 300;
+    }
+    .home-image-wrapper {
+      width: 220px;
+      height: 280px;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 30px 50px -20px rgba(0,0,0,0.9), 0 0 0 1px rgba(212,182,138,0.08);
+      margin-bottom: 2.2rem;
+      transition: transform 0.4s ease;
+      border: 1px solid rgba(212,182,138,0.06);
+      animation: fadeInScale 0.8s ease forwards;
+      flex-shrink: 0;
+    }
+    .home-image-wrapper:hover { transform: scale(1.02); }
+    .home-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #1e1c19;
+    }
+    @keyframes fadeInScale {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .btn-start {
+      background: rgba(212, 182, 138, 0.12);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid rgba(212, 182, 138, 0.3);
+      padding: 0.9rem 3.2rem;
+      border-radius: 60px;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #f5e6c8;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 8px 20px -6px rgba(0,0,0,0.6);
+    }
+    .btn-start:hover {
+      background: rgba(212, 182, 138, 0.25);
+      border-color: #d4b68a;
+      transform: scale(1.02);
+    }
+    /* MEMORY PAGES */
+    .memory-page {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.8rem 1.8rem 5.2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      background: #0b0b0b;
+      overflow-y: auto;
+      transform: scale(1);
+    }
+    .memory-page.active { opacity: 1; pointer-events: auto; z-index: 10; transform: scale(1); }
+    .memory-page.exit-left { opacity: 0; transform: translateX(-20px) scale(0.98); pointer-events: none; }
+    .memory-page.enter-right { opacity: 0; transform: translateX(20px) scale(0.98); pointer-events: none; }
+    .memory-card {
+      max-width: 780px;
+      width: 100%;
+      background: rgba(20, 18, 16, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 48px;
+      padding: 2.8rem 3rem 2.4rem;
+      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.9), 0 0 0 1px rgba(212, 182, 138, 0.06);
+      border: 1px solid rgba(212, 182, 138, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      max-height: 92vh;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #d4b68a33 transparent;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" /><path d="M10 10 L90 10 L90 90 L10 90 Z" stroke="rgba(212,182,138,0.03)" stroke-width="0.5" fill="none" /></svg>');
+      background-size: 40px 40px;
+    }
+    .memory-card::-webkit-scrollbar { width: 4px; }
+    .memory-card::-webkit-scrollbar-thumb { background: #d4b68a44; border-radius: 20px; }
+    .memory-title {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 500;
+      letter-spacing: -0.3px;
+      color: #f5e6c8;
+      border-left: 4px solid #d4b68a;
+      padding-left: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+    .memory-date {
+      font-size: 0.8rem;
+      letter-spacing: 0.6px;
+      color: #a38d74;
+      margin-top: -0.2rem;
+      padding-left: 1.2rem;
+      border-left: 4px solid transparent;
+    }
+    .memory-diary {
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      line-height: 1.9;
+      color: #e2d6c8;
+      font-weight: 300;
+      background: rgba(0,0,0,0.15);
+      padding: 1.6rem 1.8rem;
+      border-radius: 28px;
+      border-left: 3px solid #d4b68a22;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-width: 800px;
+      margin: 0 auto;
+      letter-spacing: 0.02em;
+    }
+    .memory-diary p { margin-bottom: 1.2rem; }
+    .memory-diary p:last-child { margin-bottom: 0; }
+    .reading-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: #8a7a6a;
+      letter-spacing: 0.3px;
+      padding: 0 0.2rem;
+      border-bottom: 1px solid rgba(212,182,138,0.08);
+      padding-bottom: 0.6rem;
+      margin-bottom: 0.2rem;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .reading-meta span {
+      background: rgba(0,0,0,0.2);
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+    }
+    .audio-player {
+      width: 100%;
+      margin: 0.2rem 0;
+      background: rgba(0,0,0,0.3);
+      border-radius: 60px;
+      padding: 0.6rem 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .audio-player audio {
+      width: 100%;
+      height: 38px;
+      outline: none;
+      border-radius: 40px;
+      filter: invert(0.9) hue-rotate(10deg);
+    }
+    .audio-player audio::-webkit-media-controls-panel { background: #1f1b17; }
+    .nav-bar {
+      position: absolute;
+      bottom: 1.4rem;
+      left: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      padding: 0.6rem 1rem;
+      z-index: 20;
+      background: rgba(11, 11, 11, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-top: 1px solid rgba(212, 182, 138, 0.06);
+    }
+    .nav-btn {
+      background: transparent;
+      border: 1px solid rgba(212, 182, 138, 0.2);
+      color: #d4c0ac;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 400;
+      cursor: pointer;
+      transition: 0.25s ease;
+      letter-spacing: 0.2px;
+      backdrop-filter: blur(2px);
+      background: rgba(20, 18, 16, 0.3);
+    }
+    .nav-btn:hover:not(:disabled) {
+      background: rgba(212, 182, 138, 0.15);
+      border-color: #d4b68a;
+      color: #f5e6c8;
+    }
+    .nav-btn:disabled { opacity: 0.25; cursor: not-allowed; border-color: transparent; }
+    .nav-indicator {
+      color: #a38d74;
+      font-size: 0.8rem;
+      letter-spacing: 0.4px;
+      min-width: 110px;
+      text-align: center;
+    }
+    #loadingScreen {
+      position: fixed;
+      inset: 0;
+      background: #0b0b0b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      color: #d4b68a;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      transition: opacity 0.8s ease;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+    #loadingScreen.hide { opacity: 0; pointer-events: none; }
+    .loader {
+      width: 30px;
+      height: 30px;
+      border: 2px solid rgba(212, 182, 138, 0.1);
+      border-top: 2px solid #d4b68a;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .music-popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+    }
+    .music-popup.show { opacity: 1; pointer-events: auto; }
+    .popup-card {
+      max-width: 460px;
+      width: 100%;
+      background: rgba(20,18,16,0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 56px;
+      padding: 2.8rem 2.2rem;
+      text-align: center;
+      border: 1px solid rgba(212,182,138,0.1);
+      box-shadow: 0 40px 80px -20px #000;
+    }
+    .popup-card h2 {
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: #f5e6c8;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.4rem;
+    }
+    .popup-card p {
+      color: #c4b4a0;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0.8rem 0 1.8rem;
+      font-weight: 300;
+    }
+    .popup-actions { display: flex; flex-direction: column; gap: 0.8rem; }
+    .popup-btn {
+      background: rgba(212,182,138,0.08);
+      border: 1px solid rgba(212,182,138,0.2);
+      color: #f5e6c8;
+      padding: 0.8rem 1.6rem;
+      border-radius: 60px;
+      font-size: 1rem;
+      font-weight: 400;
+      cursor: pointer;
+      transition: 0.25s;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(2px);
+    }
+    .popup-btn:hover {
+      background: rgba(212,182,138,0.18);
+      border-color: #d4b68a;
+    }
+    .popup-btn.primary {
+      background: rgba(212,182,138,0.2);
+      border-color: #d4b68a55;
+    }
+    .popup-btn.primary:hover { background: rgba(212,182,138,0.3); }
+    .floating-music {
+      position: fixed;
+      bottom: 6rem;
+      right: 1.2rem;
+      z-index: 40;
+      background: rgba(20,18,16,0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 60px;
+      padding: 0.6rem 1rem;
+      border: 1px solid rgba(212,182,138,0.15);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 8px 20px -8px #000;
+      transition: 0.3s;
+    }
+    .floating-music audio {
+      width: 100px;
+      height: 30px;
+      filter: invert(0.9) hue-rotate(10deg);
+    }
+    .floating-music audio::-webkit-media-controls-panel { background: #1f1b17; }
+    .surprise-btn {
+      background: rgba(212,182,138,0.12);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid rgba(212,182,138,0.25);
+      padding: 0.7rem 2rem;
+      border-radius: 60px;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #f5e6c8;
+      cursor: pointer;
+      transition: 0.3s ease;
+      letter-spacing: 0.3px;
+      margin-top: 0.2rem;
+      width: fit-content;
+      align-self: center;
+    }
+    .surprise-btn:hover {
+      background: rgba(212,182,138,0.2);
+      border-color: #d4b68a;
+      transform: scale(1.02);
+    }
+    /* Surprise popup */
+    .surprise-popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      transform: scale(0.95);
+    }
+    .surprise-popup.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+    .surprise-popup .popup-card {
+      max-width: 540px;
+      background: rgba(20,18,16,0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 56px;
+      padding: 2.8rem 2.4rem;
+      text-align: center;
+      border: 1px solid rgba(212,182,138,0.1);
+      box-shadow: 0 40px 80px -20px #000;
+    }
+    .surprise-popup .popup-card h2 {
+      font-size: 2rem;
+      font-weight: 400;
+      color: #f5e6c8;
+      margin-bottom: 0.8rem;
+    }
+    .surprise-popup .popup-image-wrapper {
+      width: 200px;
+      height: 260px;
+      border-radius: 24px;
+      overflow: hidden;
+      margin: 0 auto 1.2rem;
+      box-shadow: 0 20px 40px -16px rgba(0,0,0,0.8), 0 0 0 1px rgba(212,182,138,0.06);
+      border: 1px solid rgba(212,182,138,0.05);
+      animation: fadeInScale 0.7s ease forwards;
+    }
+    .surprise-popup .popup-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #1e1c19;
+    }
+    .surprise-popup .popup-card p {
+      color: #d4c8bc;
+      font-size: 1rem;
+      line-height: 1.8;
+      margin: 0.8rem 0 1.8rem;
+      font-weight: 300;
+      white-space: pre-wrap;
+    }
+    .surprise-popup .popup-actions {
+      display: flex;
+      flex-direction: row;
+      gap: 0.8rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .surprise-popup .popup-btn { min-width: 120px; }
+    @media (max-width: 600px) {
+      .memory-card { padding: 1.8rem; border-radius: 32px; }
+      .nav-bar { gap: 0.6rem; padding: 0.4rem 0.6rem; }
+      .nav-btn { padding: 0.3rem 0.8rem; font-size: 0.75rem; }
+      .memory-diary { font-size: 0.95rem; padding: 1.2rem; }
+      .floating-music { bottom: 5rem; right: 0.6rem; padding: 0.4rem 0.6rem; }
+      .floating-music audio { width: 70px; }
+      .surprise-popup .popup-card { padding: 2rem 1.4rem; }
+      .surprise-popup .popup-actions { flex-direction: column; }
+      .surprise-popup .popup-btn { min-width: unset; }
+      .home-image-wrapper { width: 160px; height: 210px; }
+      .surprise-popup .popup-image-wrapper { width: 150px; height: 200px; }
+    }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loadingScreen"><div class="loader"></div><span>loading diary ...</span></div>
+
+<!-- MUSIC POPUP -->
+<div class="music-popup" id="musicPopup">
+  <div class="popup-card" data-aos="zoom-in">
+    <h2>Welcome</h2>
+    <p>This diary is best experienced with music.<br />Would you like to play the background music while reading?</p>
+    <div class="popup-actions">
+      <button class="popup-btn primary" id="popupYes">🎵 Start With Music</button>
+      <button class="popup-btn" id="popupNo">🔇 Continue Without Music</button>
+    </div>
+  </div>
+</div>
+
+<!-- DIARY CONTAINER -->
+<div class="diary-container" id="diaryApp">
+  <div id="homeScreen">
+    <div class="home-title">From Free Fire<br />to Forever</div>
+    <div class="home-sub">“A collection of memories I’ll always be thankful for.”</div>
+    <div class="home-image-wrapper">
+      <img src="assets/images/madam_jii_home.jpg" alt="Madam Jii" loading="eager" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22533%22 viewBox=%220 0 400 533%22%3E%3Crect width=%22400%22 height=%22533%22 fill=%22%231e1b18%22/%3E%3Ctext x=%22200%22 y=%22266%22 fill=%22%23d4b68a44%22 text-anchor=%22middle%22 font-size=%2220%22 font-family=%22Inter%22%3EMadam Jii%3C/text%3E%3C/svg%3E'" />
+    </div>
+    <button class="btn-start" id="startReadingBtn">Start Reading</button>
+  </div>
+  <div id="memoryContainer"></div>
+  <div class="nav-bar" id="navBar">
+    <button class="nav-btn" id="prevBtn" disabled>← Previous</button>
+    <button class="nav-btn home-nav-btn" id="homeBtn">Home</button>
+    <span class="nav-indicator" id="pageIndicator">1 / 10</span>
+    <button class="nav-btn" id="nextBtn">Next →</button>
+  </div>
+</div>
+
+<!-- floating music -->
+<div class="floating-music" id="floatingMusic">
+  <audio id="bgAudio" preload="metadata"><source src="assets/audio/song.mp3" type="audio/mpeg" /></audio>
+</div>
+
+<!-- SURPRISE POPUP -->
+<div class="surprise-popup" id="surprisePopup">
+  <div class="popup-card">
+    <h2>❤️ To Madam Jii</h2>
+    <div class="popup-image-wrapper">
+      <img src="assets/images/madam_jii_popup.jpg" alt="Madam Jii" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22533%22 viewBox=%220 0 400 533%22%3E%3Crect width=%22400%22 height=%22533%22 fill=%22%231e1b18%22/%3E%3Ctext x=%22200%22 y=%22266%22 fill=%22%23d4b68a44%22 text-anchor=%22middle%22 font-size=%2220%22 font-family=%22Inter%22%3EMadam Jii%3C/text%3E%3C/svg%3E'" />
+    </div>
+    <p>If you're ever reading this...
+
+I don't want this diary to make you feel guilty.
+
+I made it because every memory we created meant something to me.
+
+Thank you for every laugh, every call, every game of Free Fire, every good morning, every good night, and every little moment that became part of my life.
+
+I truly hope life gives you all the happiness you deserve.
+
+Thank you for being part of my life.</p>
+    <div class="popup-actions">
+      <button class="popup-btn primary" id="surpriseReadAgain">🔄 Read Again</button>
+      <button class="popup-btn" id="surpriseClose">❌ Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  (function() {
+    // ----- DIARY CHAPTERS (10) -----
+    // Chapter 10 updated based on user's correction: she never said "my parents will never accept"
+    // She simply said "forget me" and "we can't continue this further"
+    const memories = [
+      {
+        title: "Where It All Started",
+        date: "16 October 2024",
+        diary: `I remember that day so clearly. It was just another evening, I was playing Free Fire with some random people, not expecting anything. And then I saw her in the lobby. Madam Jii. I don't even know why I called her that the first time, but it stuck.
+
+        We started talking in the game chat, then moved to Instagram. She was from Assam, I was from Bangalore. Two different worlds. But something about the way she spoke, so respectful and kind, made me want to know more. I asked for her number, and she gave it. That night I couldn't stop thinking about her.
+
+        It wasn't love at first sight. It was more like a slow pull, like being drawn to a place you've never been but somehow feels familiar. We talked for hours, about nothing and everything. She told me about her day, I told her about mine. And somewhere between those messages, I started to realize this was special.`
+      },
+      {
+        title: "Getting To Know You",
+        date: "—",
+        diary: `The first few weeks were all about discovery. I learned that she gets angry over small things, but she cools down just as fast. She has this way of holding herself, so much respect in her voice even when she's upset. I found myself enjoying every conversation, even the arguments.
+
+        I remember confessing to her after a few days. I didn't plan it, it just came out. She said she wanted to remain friends. I respected that, but I couldn't stop thinking about her. So I kept trying, kept showing up, kept being there. Not because I expected anything, but because being around her felt right.
+
+        We played Free Fire together every night, and those games became my favorite part of the day. She laughed at my terrible aim, and I laughed at her jokes. It was simple, but it was everything.`
+      },
+      {
+        title: "Waiting For Your Messages",
+        date: "—",
+        diary: `I started waking up earlier just to see if she had sent a message. Every notification made my heart skip. I'd check my phone a hundred times a day, hoping to see her name.
+
+        She became part of my routine. Good morning, good night, how was your day? Those small questions felt huge. I'd replay our conversations in my head, remembering the way she typed, the emojis she used, the little things she shared.
+
+        There was something about her that made me want to be a better person. Not because she asked, but because she deserved it. I started noticing the small details, like how she always said 'thank you' and 'please', how she never made me feel small. That kind of respect is rare.`
+      },
+      {
+        title: "10 December 2024",
+        date: "10 December 2024",
+        diary: `She finally said yes. I still remember the exact moment, the way my heart raced when I read that message. It felt like everything had led to this one moment.
+
+        We had been talking for months, and I had been patient. I never pushed, never forced. I just stayed consistent, stayed honest. And on that night, she told me she wanted to give it a try.
+
+        That was the start of something beautiful. I called her that night, and we talked for hours. I could hear the smile in her voice. It was one of the happiest moments of my life. I knew this was going to be different, that she was different.`
+      },
+      {
+        title: "3:30 PM",
+        date: "—",
+        diary: `The first audio call. I still remember the time – 3:30 PM. I was nervous, but as soon as I heard her voice, everything felt right. She sounded just like I imagined, warm and kind.
+
+        We talked about everything, our day, our dreams, the things we wanted to do. I didn't want the call to end. Her voice became my favorite sound.
+
+        I realized then that I was falling deeper than I expected. It wasn't just attraction anymore. It was connection. She understood me without me having to explain. And I wanted to know everything about her.`
+      },
+      {
+        title: "The First Time I Saw You",
+        date: "—",
+        diary: `The first video call. I can still picture it. She was the prettiest girl I had ever seen. Her smile, her eyes, the way she looked at me. I remember feeling so lucky, so grateful that she was willing to share this moment with me.
+
+        I couldn't stop smiling. She had this way of making everything feel okay. We talked for hours, and I didn't want to hang up. I knew then that I had found someone truly special.
+
+        That call changed everything. Seeing her made it all real. The distance didn't matter anymore. All that mattered was her.`
+      },
+      {
+        title: "The Girl In The Red Dress",
+        date: "—",
+        diary: `Another video call, and she was wearing a red dress. I'll never forget that image. She looked stunning, but it was more than that. She looked confident, beautiful, and completely herself.
+
+        I remember telling her how beautiful she looked, and she smiled. That smile, that moment, it's burned into my memory. I think I fell a little more that day.
+
+        It wasn't just about her looks. It was the way she carried herself, the way she laughed, the way she made me feel like I was the only one in the world. That red dress, that smile, that girl. I was completely hers.`
+      },
+      {
+        title: "Convincing Madam Jii",
+        date: "—",
+        diary: `There was a time she got really angry. I had posted an Instagram story with my sister, and she thought something else. She stopped talking to me, and I felt my heart sink.
+
+        I tried to explain, but she wouldn't listen. So I asked my sister to talk to her. That's when she finally believed me. It took a lot of patience and understanding, but we worked through it.
+
+        I learned that trust isn't automatic. It's built, slowly, through actions and honesty. And I was willing to do whatever it took to earn her trust.`
+      },
+      {
+        title: "When Distance Became Hard",
+        date: "—",
+        diary: `As the months passed, something started to shift. It wasn't that we stopped caring — it was that we started seeing the future more clearly. And the future wasn't simple.
+
+        I think we both knew, deep down, that a long-distance relationship came with challenges. But it wasn't just the distance itself. It was the thought of what came after. Her family, her parents — they meant everything to her. She loved them deeply, and I always respected that about her.
+
+        She never said it directly, but I could feel it. The weight of knowing that her parents would probably never accept a relationship where two people lived so far apart. She didn't want to disappoint them. She didn't want to hurt them. And I understood that, even though it made my heart ache.
+
+        We never had a big argument about it. It just sat there, quietly, between us. In the way she sometimes paused during calls. In the way she talked about home. In the way she said my name sometimes — like she was holding something back.
+
+        I wanted to find a way. I wanted to tell her that we could figure it out. But sometimes loving someone also means understanding the weight they're carrying. And she was carrying a lot.`
+      },
+      {
+        title: "Thank You",
+        date: "30 March 2026",
+        diary: `On 30 March 2026, she told me she couldn't continue this further. She asked me to forget her. It wasn't dramatic or angry — it was quiet, like she had already made peace with it.
+
+        She still loved me. I could feel it. But there was something she wasn't saying. Maybe it was her family, maybe it was the distance, maybe it was just the weight of everything we never talked about. She never blamed anyone, and neither do I.
+
+        After she said those words, I tried. I wanted to convince her, to find a way to keep us going. But she had made her decision. And I had to accept that.
+
+        It hurt. It still does. But I know she didn't stop loving me. She just couldn't see a way forward. And sometimes that's enough of a reason.
+
+        I don't feel angry. I don't feel bitter. What I feel is gratitude. For the laughter, for the calls, for the games we played together, for the mornings and nights we shared. She was the first person who made me feel truly seen.
+
+        I'll always be thankful that one Free Fire match introduced me to you.
+
+        Thank you for being part of my life.`
+      }
+    ];
+
+    // ----- STATE -----
+    let currentIndex = 0;
+    let totalPages = memories.length;
+    let isHomeVisible = true;
+    let isTransitioning = false;
+    let musicAllowed = false;
+
+    const container = document.getElementById('memoryContainer');
+    const homeScreen = document.getElementById('homeScreen');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const homeBtn = document.getElementById('homeBtn');
+    const indicator = document.getElementById('pageIndicator');
+    const loading = document.getElementById('loadingScreen');
+    const musicPopup = document.getElementById('musicPopup');
+    const popupYes = document.getElementById('popupYes');
+    const popupNo = document.getElementById('popupNo');
+    const bgAudio = document.getElementById('bgAudio');
+    const startReadingBtn = document.getElementById('startReadingBtn');
+    const surprisePopup = document.getElementById('surprisePopup');
+    const surpriseReadAgain = document.getElementById('surpriseReadAgain');
+    const surpriseClose = document.getElementById('surpriseClose');
+
+    // ----- BUILD PAGES (no images inside chapters) -----
+    function buildPages() {
+      container.innerHTML = '';
+      memories.forEach((mem, idx) => {
+        const page = document.createElement('div');
+        page.className = 'memory-page';
+        if (idx === 0 && !isHomeVisible) page.classList.add('active');
+        page.dataset.index = idx;
+        const paras = mem.diary.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+        const diaryHtml = paras.map(p => `<p>${p.trim()}</p>`).join('');
+        const readingTime = Math.max(1, Math.round(mem.diary.split(/\s+/).length / 180));
+        const surpriseHTML = (idx === 9) ? `<button class="surprise-btn" id="surpriseBtn">🎁 One Last Thing</button>` : '';
+        page.innerHTML = `
+          <div class="memory-card">
+            <div class="reading-meta">
+              <span>Chapter ${idx+1} of ${totalPages}</span>
+              <span>⏱ ${readingTime} min read</span>
+            </div>
+            <div class="memory-title" data-aos="fade-down">${mem.title}</div>
+            <div class="memory-date" data-aos="fade-down" data-aos-delay="50">${mem.date}</div>
+            <div class="memory-diary" data-aos="fade-up">${diaryHtml}</div>
+            <div class="audio-player" data-aos="fade-left">
+              <audio controls preload="metadata">
+                <source src="assets/audio/song.mp3" type="audio/mpeg" />
+              </audio>
+            </div>
+            ${surpriseHTML}
+          </div>
+        `;
+        container.appendChild(page);
+      });
+    }
+    buildPages();
+
+    // attach surprise button listener
+    document.addEventListener('click', function(e) {
+      if (e.target.id === 'surpriseBtn') {
+        surprisePopup.classList.add('show');
+      }
+    });
+
+    // Surprise popup buttons
+    surpriseReadAgain.addEventListener('click', function() {
+      surprisePopup.classList.remove('show');
+      isHomeVisible = true;
+      currentIndex = 0;
+      document.querySelectorAll('.memory-page').forEach(p => p.classList.remove('active', 'exit-left', 'enter-right'));
+      homeScreen.classList.remove('hidden');
+      updateVisibility();
+    });
+    surpriseClose.addEventListener('click', function() {
+      surprisePopup.classList.remove('show');
+    });
+    surprisePopup.addEventListener('click', function(e) {
+      if (e.target === surprisePopup) surprisePopup.classList.remove('show');
+    });
+
+    // ----- HELPERS -----
+    function getPages() { return document.querySelectorAll('.memory-page'); }
+
+    function updateVisibility(animate = true) {
+      const pages = getPages();
+      pages.forEach((p, i) => {
+        if (i === currentIndex && !isHomeVisible) {
+          p.classList.add('active');
+          p.classList.remove('exit-left', 'enter-right');
+        } else {
+          p.classList.remove('active', 'exit-left', 'enter-right');
+        }
+      });
+      prevBtn.disabled = (currentIndex === 0 || isHomeVisible || isTransitioning);
+      nextBtn.disabled = (currentIndex === totalPages - 1 || isHomeVisible || isTransitioning);
+      indicator.textContent = isHomeVisible ? '—' : `${currentIndex+1} / ${totalPages}`;
+      homeScreen.classList.toggle('hidden', !isHomeVisible);
+
+      if (!isHomeVisible) {
+        setTimeout(() => {
+          const activePage = document.querySelector('.memory-page.active');
+          if (activePage) {
+            const els = activePage.querySelectorAll('[data-aos]');
+            els.forEach((el, i) => {
+              el.classList.remove('aos-animate');
+              const delay = 100 + i * 120;
+              setTimeout(() => {
+                el.classList.add('aos-animate');
+              }, delay);
+            });
+          }
+          AOS.refresh();
+        }, 120);
+      }
+    }
+
+    function transitionTo(index, direction = 'next') {
+      if (isTransitioning || index === currentIndex || isHomeVisible) return;
+      isTransitioning = true;
+      const pages = getPages();
+      const oldPage = pages[currentIndex];
+      const newPage = pages[index];
+
+      pages.forEach(p => p.classList.remove('active', 'exit-left', 'enter-right'));
+
+      if (oldPage) {
+        oldPage.classList.add(direction === 'next' ? 'exit-left' : 'enter-right');
+        oldPage.style.opacity = '1';
+        oldPage.style.pointerEvents = 'none';
+      }
+      if (newPage) {
+        newPage.classList.add(direction === 'next' ? 'enter-right' : 'exit-left');
+        newPage.style.opacity = '1';
+        newPage.style.pointerEvents = 'none';
+      }
+
+      setTimeout(() => {
+        if (oldPage) {
+          oldPage.classList.remove('active', 'exit-left', 'enter-right');
+          oldPage.style.opacity = '';
+          oldPage.style.pointerEvents = '';
+        }
+        if (newPage) {
+          newPage.classList.remove('enter-right', 'exit-left');
+          newPage.classList.add('active');
+          newPage.style.opacity = '';
+          newPage.style.pointerEvents = '';
+        }
+        currentIndex = index;
+        isTransitioning = false;
+        updateVisibility();
+      }, 550);
+    }
+
+    function goToPage(index) {
+      if (isHomeVisible || isTransitioning || index < 0 || index >= totalPages) return;
+      const dir = index > currentIndex ? 'next' : 'prev';
+      transitionTo(index, dir);
+    }
+
+    function showHome() {
+      if (isTransitioning) return;
+      isHomeVisible = true;
+      document.querySelectorAll('.memory-page').forEach(p => p.classList.remove('active', 'exit-left', 'enter-right'));
+      updateVisibility();
+    }
+
+    function startReading() {
+      isHomeVisible = false;
+      currentIndex = 0;
+      homeScreen.classList.add('hidden');
+      const pages = getPages();
+      pages.forEach((p, i) => {
+        p.classList.toggle('active', i === 0);
+        p.classList.remove('exit-left', 'enter-right');
+      });
+      updateVisibility();
+    }
+
+    // ----- MUSIC POPUP -----
+    function closePopup(playMusic) {
+      musicPopup.classList.remove('show');
+      if (playMusic && musicAllowed) {
+        bgAudio.play().catch(() => {});
+      }
+    }
+    popupYes.addEventListener('click', () => {
+      musicAllowed = true;
+      closePopup(true);
+    });
+    popupNo.addEventListener('click', () => {
+      musicAllowed = false;
+      closePopup(false);
+    });
+    setTimeout(() => { musicPopup.classList.add('show'); }, 900);
+
+    // ----- EVENT LISTENERS -----
+    startReadingBtn.addEventListener('click', startReading);
+    prevBtn.addEventListener('click', () => {
+      if (!isHomeVisible && currentIndex > 0) goToPage(currentIndex - 1);
+    });
+    nextBtn.addEventListener('click', () => {
+      if (!isHomeVisible && currentIndex < totalPages - 1) goToPage(currentIndex + 1);
+    });
+    homeBtn.addEventListener('click', showHome);
+
+    document.addEventListener('keydown', (e) => {
+      if (isHomeVisible) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startReading(); }
+        return;
+      }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); if (currentIndex > 0) goToPage(currentIndex-1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); if (currentIndex < totalPages-1) goToPage(currentIndex+1); }
+    });
+
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    document.addEventListener('touchend', (e) => {
+      if (isHomeVisible || isTransitioning) return;
+      const diff = touchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0 && currentIndex < totalPages-1) goToPage(currentIndex+1);
+        else if (diff < 0 && currentIndex > 0) goToPage(currentIndex-1);
+      }
+    }, { passive: true });
+
+    // ----- INIT -----
+    setTimeout(() => {
+      loading.classList.add('hide');
+      setTimeout(() => loading.style.display = 'none', 800);
+    }, 700);
+
+    isHomeVisible = true;
+    homeScreen.classList.remove('hidden');
+    document.querySelectorAll('.memory-page').forEach(p => p.classList.remove('active'));
+    updateVisibility();
+
+    AOS.init({ duration: 1000, offset: 80, once: false, easing: 'ease-in-out' });
+    window.addEventListener('resize', () => AOS.refresh());
+
+  })();
+</script>
+</body>
+</html>
